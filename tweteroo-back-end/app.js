@@ -24,4 +24,13 @@ app.post("/tweets", (req, res) => {
   res.send("OK");
 });
 
+app.get("/tweets", (req, res) => {
+  let lastTenTweets = tweetInfos.slice(-10);
+  lastTenTweets = lastTenTweets.map((tweet) => {
+    const { avatar } = usersInfos.find((user) => user.username === tweet.username);
+    return { ...tweet, avatar };
+  });
+  res.send(lastTenTweets);
+});
+
 app.listen(5000);
