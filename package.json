@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./tweteroo-back-end/app.js"
+    "start": "nodemon tweteroo-back-end/app.js"
   },
   "keywords": [],
   "author": "",
