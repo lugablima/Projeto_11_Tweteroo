@@ -19,9 +19,9 @@ app.post("/sign-up", (req, res) => {
   res.send("OK");
 });
 
-const tweetInfoTemplate = {
-  username: "",
-  tweet: "",
-};
+app.post("/tweets", (req, res) => {
+  tweetInfos.push(req.body);
+  res.send("OK");
+});
 
 app.listen(5000);
