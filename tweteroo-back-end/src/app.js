@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import validateRequestSignUp from "./functions/validateRequestSignUp.js";
 import validateAvatarURL from "./functions/validateAvatarURL.js";
+import validateTweetsRequestFormat from "./functions/validateTweetsRequestFormat.js";
+import validateTweetsRequestContent from "./functions/validateTweetsRequestContent.js";
 
 const app = express();
 
@@ -31,8 +33,12 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  tweetInfos.push(req.body);
-  res.send("OK");
+  if (validateTweetsRequestFormat(req.body)) {
+    if (validateTweetsRequestContent(req.body)) {
+      tweetInfos.push(req.body);
+      res.status(201).send("OK");
+    } else res.status(400).send("Todos os campos são obrigatórios!");
+  } else res.sendStatus(400);
 });
 
 app.get("/tweets", (req, res) => {
