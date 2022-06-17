@@ -41,13 +41,29 @@ app.post("/tweets", (req, res) => {
   } else res.sendStatus(400);
 });
 
+// app.get("/tweets", (req, res) => {
+//   let lastTenTweets = tweetInfos.slice(-10);
+//   lastTenTweets = lastTenTweets.map((tweet) => {
+//     const { avatar } = usersInfos.find((user) => user.username === tweet.username);
+//     return { ...tweet, avatar };
+//   });
+//   res.send(lastTenTweets);
+// });
+
 app.get("/tweets", (req, res) => {
-  let lastTenTweets = tweetInfos.slice(-10);
-  lastTenTweets = lastTenTweets.map((tweet) => {
-    const { avatar } = usersInfos.find((user) => user.username === tweet.username);
-    return { ...tweet, avatar };
-  });
-  res.send(lastTenTweets);
+  const page = Number(req.query.page);
+  // console.log(page);
+  // console.log(typeof page);
+  if (typeof page === "number" && page !== NaN && page >= 1 && page % 1 === 0) {
+    const limitMinTweets = page * -10;
+    const limitMaxTweets = tweetInfos.length - (page - 1) * 10;
+    let lastTenTweets = tweetInfos.slice(limitMinTweets, limitMaxTweets);
+    lastTenTweets = lastTenTweets.map((tweet) => {
+      const { avatar } = usersInfos.find((user) => user.username === tweet.username);
+      return { ...tweet, avatar };
+    });
+    res.send(lastTenTweets);
+  } else res.status(400).send("Informe uma página válida!");
 });
 
 app.get("/tweets/:username", (req, res) => {
