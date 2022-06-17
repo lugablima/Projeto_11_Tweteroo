@@ -50,4 +50,14 @@ app.get("/tweets", (req, res) => {
   res.send(lastTenTweets);
 });
 
+app.get("/tweets/:username", (req, res) => {
+  const username = req.params.username;
+  let tweetsOfTheUser = tweetInfos.filter((tweet) => tweet.username === username);
+  tweetsOfTheUser = tweetsOfTheUser.map((tweet) => {
+    const { avatar } = usersInfos.find((user) => user.username === tweet.username);
+    return { ...tweet, avatar };
+  });
+  res.send(tweetsOfTheUser);
+});
+
 app.listen(5000);
