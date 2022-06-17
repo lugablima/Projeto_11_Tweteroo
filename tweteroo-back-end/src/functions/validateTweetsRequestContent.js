@@ -1,6 +1,6 @@
-function validateTweetsRequestContent(res) {
-  const isNotEmpty = res.username !== "" && res.tweet !== "";
-  const hasNoSpace = !res.username.includes(" ");
+function validateTweetsRequestContent(user, body) {
+  const isNotEmpty = user !== "" && body.tweet !== "";
+  const hasNoSpace = !user.includes(" ");
   return isNotEmpty && hasNoSpace;
 }
 

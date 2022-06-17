@@ -1,6 +1,6 @@
-function validateTweetsRequestFormat(res) {
-  const isObject = typeof res === "object";
-  const isFormattedCorrectly = typeof res.username === "string" && typeof res.tweet === "string";
+function validateTweetsRequestFormat(user, body) {
+  const isObject = typeof body === "object";
+  const isFormattedCorrectly = typeof user === "string" && typeof body.tweet === "string";
   return isObject && isFormattedCorrectly;
 }
 

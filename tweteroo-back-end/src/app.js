@@ -32,10 +32,23 @@ app.post("/sign-up", (req, res) => {
   } else res.sendStatus(400);
 });
 
+// app.post("/tweets", (req, res) => {
+//   if (validateTweetsRequestFormat(req.body)) {
+//     if (validateTweetsRequestContent(req.body)) {
+//       tweetInfos.push(req.body);
+//       res.status(201).send("OK");
+//     } else res.status(400).send("Todos os campos são obrigatórios!");
+//   } else res.sendStatus(400);
+// });
+
 app.post("/tweets", (req, res) => {
-  if (validateTweetsRequestFormat(req.body)) {
-    if (validateTweetsRequestContent(req.body)) {
-      tweetInfos.push(req.body);
+  const user = req.header("user");
+  const body = req.body;
+  // console.log(user);
+  // console.log(typeof user);
+  if (validateTweetsRequestFormat(user, body)) {
+    if (validateTweetsRequestContent(user, body)) {
+      tweetInfos.push({ username: user, tweet: body.tweet });
       res.status(201).send("OK");
     } else res.status(400).send("Todos os campos são obrigatórios!");
   } else res.sendStatus(400);
